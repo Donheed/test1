@@ -1,23 +1,34 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import LoginPage from '../views/LoginPage.vue';
-import RulesPage from '../views/RulesPage.vue';
-
-const routes = [
-  {
-    path: '/',
-    name: 'login',
-    component: LoginPage, // Halaman login
-  },
-  {
-    path: '/rules', // Halaman aturan
-    name: 'rules',
-    component: RulesPage,
-  },
-];
+import AdminLayout from '../layouts/AdminLayout.vue';
+import ItemList from '../views/admin/ItemList.vue';
+import OperatorList from '../views/admin/OperatorList.vue';
+import BorrowSummary from '../views/admin/BorrowSummary.vue';
 
 const router = createRouter({
   history: createWebHistory(),
-  routes,
+  routes: [
+    {
+      path: '/admin',
+      component: AdminLayout,
+      children: [
+        {
+          path: '',
+          name: 'items',
+          component: ItemList,
+        },
+        {
+          path: 'all-operator',
+          name: 'operators',
+          component: OperatorList,
+        },
+        {
+          path: 'summary',
+          name: 'summary',
+          component: BorrowSummary,
+        },
+      ],
+    },
+  ],
 });
 
 export default router;
